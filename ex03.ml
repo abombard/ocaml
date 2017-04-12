@@ -39,7 +39,7 @@ module Make : MAKE =
             let of_int x = x lsl Bits.bits
             let to_float x = float_of_int x /. float_of_int one
             let to_int x = x lsr Bits.bits
-            let to_string x = string_of_float (to_float x)
+            let to_string x = string_of_int (to_int x) ^ "." ^ string_of_int (x lsl (31 - Bits.bits) lsr (31 - Bits.bits))
             let succ x = x + one
             let pred x = x - one
             let min x y = if x <= y then x else y
