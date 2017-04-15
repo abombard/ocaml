@@ -1,5 +1,6 @@
 class dalek =
     object (self)
+
         val _name : string =
             let generateName () =
                 let genRandomCharacter () =
@@ -16,18 +17,21 @@ class dalek =
         val _hp : int = 100
         val mutable _shield : bool = true
 
-        method to_string = _name ^ " -> hp " ^ string_of_int _hp ^ " shield " ^ string_of_bool _shield
+        method getName = _name
+        method getHp = _hp
+        method getShield = _shield
+
+        method takeDamage pv = {< _hp = _hp - pv >}
+
+        method to_string = _name ^ " -> hp " ^ string_of_int self#getHp ^ " shield " ^ string_of_bool self#getShield
         method talk =
-            let a = [|
+            let a = [
                 "∗ Explain! Explain!";
                 "∗ Exterminate! Exterminate!";
                 "∗ I obey!";
                 "∗ You are the Doctor! You are the enemy of the Daleks!"
-            |] in
-            print_endline a.(Random.int 4)
-       method exterminate people =
-           ignore(people#_hp = 0);
-           ignore(_shield = not _shield)
+            ] in print_endline (List.nth a (Random.int (List.length a)))
+       method exterminate (people : People.people) = people#die; _shield <- not _shield
        method die = print_endline "Emergency Temporal Shift!"
 
     end

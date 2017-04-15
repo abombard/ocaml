@@ -8,7 +8,17 @@ class doctor name age sidekick =
         val _sidekick : People.people = sidekick
         val _hp : int = 100
 
-        method to_string = "doctor " ^ _name ^ " -> age " ^ string_of_int _age ^ " hp " ^ string_of_int _hp ^ " sidekick " ^ _sidekick#to_string
+        method getName = _name
+        method getAge = _age
+        method getSidekick = _sidekick
+        method getHp = _hp
+
+        method private regenerate = {< _hp = 100 >}
+        method restoreHp = self#regenerate
+
+        method takeDamage pv = {< _hp = _hp - pv >}
+
+        method to_string = "doctor " ^ self#getName ^ " |age " ^ string_of_int self#getAge ^ " hp " ^ string_of_int self#getHp ^ " sidekick " ^ self#getSidekick#to_string ^ "|"
 
         method private drawTardis = print_string
 "
@@ -36,10 +46,4 @@ _______(_@_)_______
         method travel_in_time start arrival = self#drawTardis; {< _age = _age + (arrival - start); >}
         method use_sonic_screwdriver = print_endline "Whiiiiwhiiiwhiii Whiiiiwhiiiwhiii Whiiiiwhiiiwhiii"
 
-        method private regenerate = {< _hp = 100 >}
-        method bornAgain = self#regenerate
-
-        method gotHit pv = {< _hp = _hp - pv >}
-
     end
-
